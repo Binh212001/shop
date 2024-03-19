@@ -12,7 +12,7 @@ import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, String> {
     @Query(value = "select * from products", nativeQuery = true)
     List<Product> getProducts(Pageable pageable);
-    @Query(value = "select * from products where  products.title like :title", nativeQuery = true)
+    @Query(value = "select * from products where LOWER(products.title) like %:title%", nativeQuery = true)
 
     List<Product> getProductByTitle(Pageable pageable , String title);
 

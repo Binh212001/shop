@@ -36,7 +36,7 @@ public class ProductController {
                                                                       @RequestParam("name") String name) {
         try {
             List<Product> products = productService.getProductByName(page, limit, name);
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<List<Product>>(products,"Ok"));
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>(0,products,"Ok"));
         }catch (Exception e ){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<List<Product>>(null,e.getMessage()));
         }
@@ -67,7 +67,7 @@ public class ProductController {
     public ResponseEntity<Response<Product>> getById(@PathVariable String id){
         try {
             Product p =  productService.getProductById(id);
-            return  ResponseEntity.status(HttpStatus.CREATED).body(new Response<Product>(p,"Ok"));
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<Product>(p,"Ok"));
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<Product>(null,e.getMessage()));
 

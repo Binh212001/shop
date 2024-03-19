@@ -1,12 +1,18 @@
 package org.example.shop.utils;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Response <T>{
     private  int count;
     private  T data;
     private  String message;
+
+
     public Response(T data, String message) {
         this.data = data;
         this.message = message;

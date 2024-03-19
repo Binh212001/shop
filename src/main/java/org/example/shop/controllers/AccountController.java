@@ -37,7 +37,7 @@ public class AccountController {
         if(user==null){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<AccountModel>(user,"Tài khoản hoặc mật khẩu không chính xác"));
         }
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<AccountModel>(user,"Đăng nhập thành công"));
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<AccountModel>(user,"Đăng nhập thành công"));
 
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<AccountModel>(null,e.getMessage()));
