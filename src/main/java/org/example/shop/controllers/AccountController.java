@@ -52,7 +52,7 @@ public class AccountController {
             if(updated==null){
                 return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<Boolean>(null,"Tài khoản không tồn tại."));
             }
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<Boolean>(updated,"cập nhật hành công"));
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<Boolean>(updated,"cập nhật hành công"));
 
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<Boolean>(false,e.getMessage()));
