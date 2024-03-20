@@ -11,7 +11,6 @@ import java.util.List;
 public class Size {
     @Id
     @Column(name = "sid")
-
     private String sid;
     private String name;
     @ManyToMany

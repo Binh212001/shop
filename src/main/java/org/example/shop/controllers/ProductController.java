@@ -43,7 +43,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Response<Boolean>> create(@RequestBody Product p){
+    public ResponseEntity<Response<Boolean>> create(@RequestBody ProductModel p){
         try {
         productService.create(p);
                 return  ResponseEntity.status(HttpStatus.CREATED).body(new Response<Boolean>(true,"Thêm sản phẩ thành công"));
