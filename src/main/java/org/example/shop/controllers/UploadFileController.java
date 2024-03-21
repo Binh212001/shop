@@ -4,6 +4,7 @@ import org.example.shop.entities.Product;
 import org.example.shop.repo.ProductRepo;
 import org.example.shop.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,9 @@ import java.util.UUID;
 public class UploadFileController {
     @Autowired
     ProductRepo productRepo;
+    @Value("${resources.images.directory}")
+    private String imagesDirectory;
+
 
     @PostMapping("product/upload")
     public ResponseEntity<Response<String>> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("productId") String productId) {
@@ -36,10 +40,11 @@ public class UploadFileController {
         }
         try {
             byte[] bytes = file.getBytes();
-            String urlPath = "C:\\Codding\\" + UUID.randomUUID() +file.getOriginalFilename();
+            String fileName = UUID.randomUUID() +file.getOriginalFilename();
+            String urlPath = imagesDirectory +fileName;
             Path path = Paths.get(urlPath);
             Files.write(path, bytes);
-            product.get().setImage(urlPath);
+            product.get().setImage(fileName);
             productRepo.save(product.get());
             return ResponseEntity.status(HttpStatus.OK).body(new Response<String>("Ok ", "Success"));
 

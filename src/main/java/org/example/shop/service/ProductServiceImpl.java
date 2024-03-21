@@ -106,4 +106,14 @@ public class ProductServiceImpl implements  ProductService {
             throw  new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public List<Product> getProductBySeller(int page, int limit, String userId) throws  Exception{
+        try {
+            Pageable pageable = PageRequest.of(page, limit);
+            return  productRepo.getProductBySeller(pageable,userId);
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+    }
 }

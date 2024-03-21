@@ -13,6 +13,5 @@ public class Color {
     @Column(name = "cid")
     private String cid;
     private String name;
-    @ManyToMany
-    private List<Product> products;
+
 }

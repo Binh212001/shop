@@ -42,6 +42,17 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/manage/products")
+    public ResponseEntity< Response<List<Product>>> getProductBySeller(@RequestParam("page") int page , @RequestParam("limit") int limit ,
+                                                                      @RequestParam("userId") String userId) {
+        try {
+            List<Product> products = productService.getProductBySeller(page, limit, userId);
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>(0,products,"Ok"));
+        }catch (Exception e ){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<List<Product>>(null,e.getMessage()));
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<Response<Boolean>> create(@RequestBody ProductModel p){
         try {

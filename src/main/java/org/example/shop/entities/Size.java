@@ -13,6 +13,4 @@ public class Size {
     @Column(name = "sid")
     private String sid;
     private String name;
-    @ManyToMany
-    private List<Product> products;
 }

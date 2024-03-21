@@ -14,4 +14,6 @@ public interface ProductService {
     void update(Product p) throws Exception;
 
     Product getProductById(String id)  throws Exception;;
+
+    List<Product> getProductBySeller(int page, int limit, String userId) throws Exception;
 }
