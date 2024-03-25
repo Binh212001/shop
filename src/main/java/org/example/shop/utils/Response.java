@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class Response <T>{
-    private  int count;
+    private  long count;
     private  T data;
     private  String message;
 

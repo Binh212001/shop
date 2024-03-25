@@ -14,6 +14,7 @@ public class Product {
     private double price;
     private String description;
     private String image;
+    private String category;
     @ManyToMany
     private List<Size> size;
     @ManyToMany

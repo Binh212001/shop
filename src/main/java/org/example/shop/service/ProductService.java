@@ -13,7 +13,10 @@ public interface ProductService {
     void create(ProductModel p) throws Exception;
     void update(Product p) throws Exception;
 
-    Product getProductById(String id)  throws Exception;;
+    Product getProductById(String id)  throws Exception;
 
     List<Product> getProductBySeller(int page, int limit, String userId) throws Exception;
+
+    List<Product> getProductByCategory( int page, int limit,String category) throws Exception;
+    long getCount ();
 }

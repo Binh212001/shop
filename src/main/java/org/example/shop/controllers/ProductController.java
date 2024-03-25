@@ -25,7 +25,8 @@ public class ProductController {
     public ResponseEntity< Response<List<Product>>> getAllProducts(@RequestParam("page") int page , @RequestParam("limit") int limit) {
         try {
             List<Product> products = productService.getProducts(page, limit);
-            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>(products,"Ok"));
+            long count = productService.getCount();
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>(count,products,"Ok"));
         }catch (Exception e ){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<List<Product>>(null,e.getMessage()));
         }
@@ -82,6 +83,19 @@ public class ProductController {
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<Product>(null,e.getMessage()));
 
+        }
+    }
+
+
+    @GetMapping("/category")
+    public ResponseEntity<Response<List<Product>>> getByCategory(@RequestParam("page") int page , @RequestParam("limit") int limit ,
+                                                           @RequestParam("category") String category){
+        try {
+            List<Product> p =  productService.getProductByCategory(page, limit,category);
+            long count = productService.getCount();
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>(p,"Ok"));
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<List<Product>>(null,e.getMessage()));
         }
     }
 

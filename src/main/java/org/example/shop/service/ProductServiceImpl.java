@@ -76,6 +76,7 @@ public class ProductServiceImpl implements  ProductService {
             product.setDescription(p.getDescription());
             product.setPrice(p.getPrice());
             product.setSeller(user.get());
+            product.setCategory(p.getCategory());
             List<Color>  colors = colorRepo.findByCidIn(p.getColor());
             List<Size> sizes = sizeRepo.findBySidIn(p.getSize());
             product.setColor(colors);
@@ -116,4 +117,21 @@ public class ProductServiceImpl implements  ProductService {
             throw  new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public List<Product> getProductByCategory( int page, int limit,String category) throws Exception {
+        try {
+            Pageable pageable = PageRequest.of(page, limit);
+            return  productRepo.getByCategory(pageable,category);
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public  long getCount (){
+        return  productRepo.count();
+    }
+
+
 }
