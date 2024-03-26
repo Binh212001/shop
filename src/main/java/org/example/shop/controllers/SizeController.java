@@ -20,7 +20,7 @@ public class SizeController {
     @Autowired
     SizeRepo sizeRepo;
 
-    @PostMapping("/")
+    @GetMapping("/")
     public ResponseEntity<Response<List<Size>>> register(@RequestBody Account account){
         try {
             List<Size> sizes = sizeRepo.findAll();

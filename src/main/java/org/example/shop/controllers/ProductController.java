@@ -93,7 +93,7 @@ public class ProductController {
         try {
             List<Product> p =  productService.getProductByCategory(page, limit,category);
             long count = productService.getCount();
-            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>(p,"Ok"));
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>( count,p,"Ok"));
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<List<Product>>(null,e.getMessage()));
         }
