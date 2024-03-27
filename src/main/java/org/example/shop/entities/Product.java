@@ -23,4 +23,6 @@ public class Product {
     @JoinColumn(name = "userId")
     private Account seller;
     private  boolean active ;
+
+
 }

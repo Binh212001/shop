@@ -1,6 +1,7 @@
 package org.example.shop.repo;
 
 import org.example.shop.entities.Product;
+import org.example.shop.models.TopSellingProductDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,13 @@ public interface ProductRepo extends JpaRepository<Product, String> {
     List<Product> getByCategory(Pageable pageable , String category);
 
     long count();
+
+    @Query(value = "SELECT p.title, SUM(b.quantity) AS quantity \n" +
+            "            FROM products p \n" +
+            "            JOIN bills b ON p.pid = b.pid\n" +
+            "            GROUP BY p.pid \n" +
+            "            ORDER BY quantity DESC \n" +
+            "            LIMIT 10\n" +
+            "\t\t\t", nativeQuery = true)
+    List<Object[]> findTop10ByTotalQuantitySold();
 }

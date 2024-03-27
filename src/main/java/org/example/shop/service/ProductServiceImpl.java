@@ -1,11 +1,13 @@
 package org.example.shop.service;
 
+import jakarta.transaction.Transactional;
 import org.example.shop.entities.Account;
 import org.example.shop.entities.Color;
 import org.example.shop.entities.Product;
 import org.example.shop.entities.Size;
 import org.example.shop.models.AccountModel;
 import org.example.shop.models.ProductModel;
+import org.example.shop.models.TopSellingProductDTO;
 import org.example.shop.repo.AccountRepo;
 import org.example.shop.repo.ColorRepo;
 import org.example.shop.repo.ProductRepo;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements  ProductService {
@@ -133,5 +136,30 @@ public class ProductServiceImpl implements  ProductService {
         return  productRepo.count();
     }
 
+    @Override
+    @Transactional
+    public void stopSale(List<String> ids) {
+        for (String id : ids){
+            try {
+                Optional<Product> p = productRepo.findById(id);
+                p.get().setActive(false);
+                productRepo.save(p.get());
+            }
+            catch (Exception e){
+                return;
+            }
+
+        }
+    }
+
+    public List<TopSellingProductDTO> getTopSellingProducts() {
+        List<Object[]> results = productRepo.findTop10ByTotalQuantitySold();
+
+        List<TopSellingProductDTO> topProducts = results.stream()
+                .map(obj -> new TopSellingProductDTO((String) obj[0], ((Number) obj[1]).longValue()))
+                .collect(Collectors.toList());
+
+        return topProducts;
+    }
 
 }

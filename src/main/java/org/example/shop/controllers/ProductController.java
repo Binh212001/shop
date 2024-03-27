@@ -4,6 +4,7 @@ import org.example.shop.entities.Account;
 import org.example.shop.entities.Product;
 import org.example.shop.models.AccountModel;
 import org.example.shop.models.ProductModel;
+import org.example.shop.models.TopSellingProductDTO;
 import org.example.shop.service.ProductService;
 import org.example.shop.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,15 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/top-selling")
+    public ResponseEntity<Response<List<TopSellingProductDTO>>>  getTopSellingProducts() {
+        try {
+            List<TopSellingProductDTO> products = productService.getTopSellingProducts();
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<TopSellingProductDTO>>(0,products,"Ok"));
+        }catch (Exception e ){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<List<TopSellingProductDTO>>(null,e.getMessage()));
+        }
+    }
     @PostMapping("/create")
     public ResponseEntity<Response<Boolean>> create(@RequestBody ProductModel p){
         try {
@@ -65,11 +75,21 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Response<Boolean>> update(@RequestBody Product p){
         try {
             productService.update(p);
             return  ResponseEntity.status(HttpStatus.CREATED).body(new Response<Boolean>(true,"Thêm sản phẩ thành công"));
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<Boolean>(false,e.getMessage()));
+
+        }
+    }
+    @PutMapping("/stopSale")
+    public ResponseEntity<Response<Boolean>> stopSale(@RequestBody List<String> id){
+        try {
+            productService.stopSale(id);
+            return  ResponseEntity.status(HttpStatus.CREATED).body(new Response<Boolean>(true,"OK"));
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<Boolean>(false,e.getMessage()));
 

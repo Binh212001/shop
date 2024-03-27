@@ -4,6 +4,7 @@ import org.example.shop.entities.Account;
 import org.example.shop.entities.Product;
 import org.example.shop.models.AccountModel;
 import org.example.shop.models.ProductModel;
+import org.example.shop.models.TopSellingProductDTO;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface ProductService {
 
     List<Product> getProductByCategory( int page, int limit,String category) throws Exception;
     long getCount ();
+
+    void stopSale(List<String> ids);
+
+    List<TopSellingProductDTO> getTopSellingProducts();
 }
