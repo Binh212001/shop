@@ -38,7 +38,6 @@ public class BillServiceImpl  implements  BillService{
     @Override
     public List<Bill> getBillByUser(String userId) throws Exception {
         try {
-
             return  billRepo.getBillByUser(userId);
         }catch (Exception e){
             throw  new Exception(e.getMessage());

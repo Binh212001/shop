@@ -54,8 +54,8 @@ public class BillController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity< Response<Bill>> getBillByUser(@PathVariable long id) {
+    @GetMapping("/getById/")
+    public ResponseEntity< Response<Bill>> getBillByUser(@RequestParam("id") long id) {
         try {
             Optional<Bill> bill=  billRepo.findById(id);
             return  ResponseEntity.status(HttpStatus.OK).body(new Response<Bill>(bill.get(),"Ok"));

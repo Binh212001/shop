@@ -95,8 +95,8 @@ public class ProductController {
 
         }
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<Response<Product>> getById(@PathVariable String id){
+    @GetMapping("/getById")
+    public ResponseEntity<Response<Product>> getById(@RequestParam("id") String id){
         try {
             Product p =  productService.getProductById(id);
             return  ResponseEntity.status(HttpStatus.OK).body(new Response<Product>(p,"Ok"));
