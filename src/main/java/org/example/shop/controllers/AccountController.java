@@ -45,10 +45,10 @@ public class AccountController {
         }
     }
 
-    @PutMapping("/update/{userId}")
-    public ResponseEntity<Response<Boolean>> update(@RequestBody Account account, @PathVariable String userId ) throws  Exception{
+    @PutMapping("/update")
+    public ResponseEntity<Response<Boolean>> update(@RequestBody Account account) throws  Exception{
         try {
-            Boolean updated = accountService.update(account, userId);
+            Boolean updated = accountService.update(account, account.getUserId());
             if(updated==null){
                 return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<Boolean>(null,"Tài khoản không tồn tại."));
             }
@@ -56,6 +56,18 @@ public class AccountController {
 
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<Boolean>(false,e.getMessage()));
+        }
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<Response<AccountModel>> getUser(@RequestParam("userId") String  userId) throws  Exception{
+        try {
+            AccountModel user = accountService.getUserById(userId);
+            return  ResponseEntity.status(HttpStatus.OK).body(new Response<AccountModel>(user,"Ok"));
+
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<AccountModel>(null,e.getMessage()));
+
         }
     }
 

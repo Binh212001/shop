@@ -2,6 +2,10 @@ package org.example.shop.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Entity
 @Data
 @Table(name = "users")
@@ -23,4 +27,9 @@ public class Account {
     private String addressDetail;
     private String avatar;
     private boolean isSellers;
+
+    @PrePersist
+    protected void onCreate() {
+        userId = UUID.randomUUID().toString();;
+    }
 }

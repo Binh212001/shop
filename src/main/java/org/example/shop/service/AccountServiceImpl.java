@@ -61,6 +61,13 @@ public class AccountServiceImpl implements  AccountService {
         }
     }
 
+    @Override
+    public AccountModel getUserById(String userId) {
+        Optional<Account> u = accountRepo.findById(userId);
+        AccountModel ac = mapToModel(u.get());
+        return ac;
+    }
+
     public  AccountModel mapToModel (Account account){
         return  AccountModel.builder()
                 .userId(account.getUserId())

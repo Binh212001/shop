@@ -10,4 +10,5 @@ public interface AccountService {
     AccountModel login (Account account) throws  Exception;
 
 
+    AccountModel getUserById(String userId);
 }
