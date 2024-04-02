@@ -12,7 +12,7 @@ public interface ProductService {
     List<Product> getProducts(int page  , int limit) throws Exception;
     List<Product> getProductByName(int page  , int limit , String name) throws Exception;
     void create(ProductModel p) throws Exception;
-    void update(Product p) throws Exception;
+    void update(ProductModel p) throws Exception;
 
     Product getProductById(String id)  throws Exception;
 

@@ -91,12 +91,20 @@ public class ProductServiceImpl implements  ProductService {
     }
 
     @Override
-    public void update(Product p) throws Exception {
+    public void update(ProductModel p) throws Exception {
         try {
-            Optional<Product>  product =  productRepo.findById(p.getPid());
+            Optional<Product>  product =  productRepo.findById(p.getId());
             if(product.isEmpty()){
-            productRepo.save(p);
+            throw new Exception("Product not found");
             }
+            List<Color> colors = colorRepo.findByCidIn(p.getColor());
+            List<Size> sizes = sizeRepo.findBySidIn(p.getSize());
+            product.get().setTitle(p.getTitle());
+            product.get().setDescription(p.getDescription());
+            product.get().setPrice(p.getPrice());
+            product.get().setColor(colors);
+            product.get().setSize(sizes);
+            productRepo.save(product.get());
         }catch (Exception e){
             throw  new Exception(e.getMessage());
         }

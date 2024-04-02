@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Response<Boolean>> update(@RequestBody Product p){
+    public ResponseEntity<Response<Boolean>> update(@RequestBody ProductModel p){
         try {
             productService.update(p);
             return  ResponseEntity.status(HttpStatus.CREATED).body(new Response<Boolean>(true,"Thêm sản phẩ thành công"));
