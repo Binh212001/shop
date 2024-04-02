@@ -43,4 +43,9 @@ public class BillServiceImpl  implements  BillService{
             throw  new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public List<Bill> getBillsByIds(List<Long> billIds) {
+        return  billRepo.findAllById(billIds);
+    }
 }

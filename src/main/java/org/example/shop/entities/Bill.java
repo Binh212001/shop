@@ -16,8 +16,6 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private long quantity;
-
-
     @ManyToOne
     @JoinColumn(name = "pid")
     private Product product;

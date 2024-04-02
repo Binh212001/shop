@@ -11,4 +11,6 @@ public interface BillService {
     List<Bill> getAll(int page, int limit)  throws  Exception ;
 
     List<Bill> getBillByUser(String userId) throws  Exception;
+
+    List<Bill> getBillsByIds(List<Long> billIds);
 }
