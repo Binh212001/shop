@@ -71,8 +71,8 @@ public class BillController {
     }
 
 
-    @PostMapping("/pdf")
-    public ResponseEntity<byte[]> exportBillsAsPdf(@RequestBody List<Long> billIds) {
+    @PostMapping(value = "/pdf",produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> exportBillsAsPdf(@RequestBody List<Long> billIds )  {
         List<Bill> bills = billService.getBillsByIds(billIds);
         byte[] pdfBytes = generatePdf(bills);
         return ResponseEntity
@@ -81,7 +81,7 @@ public class BillController {
                 .body(pdfBytes);
     }
 
-    private byte[] generatePdf(List<Bill> bills) {
+    private byte[] generatePdf(List<Bill> bills ) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             Document document = new Document();
@@ -89,9 +89,9 @@ public class BillController {
             float sum = 0;
             document.open();
             for (Bill bill : bills) {
-                document.add(new Paragraph("Mã hóa đơn: " + bill.getId()));
-                document.add(new Paragraph("Khách hàng: " + bill.getAccount().getFirstName()+ bill.getAccount().getLastName()));
-                document.add(new Paragraph("Sản phẩm: " +bill.getProduct().getTitle()+"      "+"Giá:" + bill.getProduct().getPrice() +"vnd          " +"Số lượng: x" + bill.getQuantity()));
+                document.add(new Paragraph("Mã hóa don : " + bill.getId()));
+                document.add(new Paragraph("Khách hàng : " + bill.getAccount().getFirstName()+ bill.getAccount().getLastName()));
+                document.add(new Paragraph("San pham : " +bill.getProduct().getTitle()+"      "+"Gia:" + bill.getProduct().getPrice() +"vnd          " +"So luong: x" + bill.getQuantity()));
                 document.add(new Paragraph("-------------------------------------------"));
                 sum+= bill.getQuantity()*bill.getProduct().getPrice();
             }
@@ -100,8 +100,8 @@ public class BillController {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+            return outputStream.toByteArray();
 
-        return outputStream.toByteArray();
     }
 
 
