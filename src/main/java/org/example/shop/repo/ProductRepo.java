@@ -36,4 +36,6 @@ public interface ProductRepo extends JpaRepository<Product, String> {
             "            LIMIT 10\n" +
             "\t\t\t", nativeQuery = true)
     List<Object[]> findTop10ByTotalQuantitySold();
+
+    List<Product> findByPriceBetween(double minPrice, double maxPrice);
 }

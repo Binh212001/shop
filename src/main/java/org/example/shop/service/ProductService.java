@@ -24,4 +24,6 @@ public interface ProductService {
     void stopSale(List<String> ids);
 
     List<TopSellingProductDTO> getTopSellingProducts();
+
+    List<Product> findProductsByPriceRange(double minPrice, double maxPrice);
 }

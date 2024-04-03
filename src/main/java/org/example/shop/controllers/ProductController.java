@@ -119,4 +119,17 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/price")
+    public ResponseEntity<Response<List<Product>>> findProductsByPriceRange(
+            @RequestParam("minPrice") double minPrice,
+            @RequestParam("maxPrice") double maxPrice) {
+        List<Product> products = productService.findProductsByPriceRange(minPrice, maxPrice);
+        if (products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Product>>( 0,products,"Ok"));
+
+
+    }
+
 }

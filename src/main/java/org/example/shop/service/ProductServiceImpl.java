@@ -170,4 +170,9 @@ public class ProductServiceImpl implements  ProductService {
         return topProducts;
     }
 
+    @Override
+    public List<Product> findProductsByPriceRange(double minPrice, double maxPrice) {
+        return productRepo.findByPriceBetween(minPrice, maxPrice);
+    }
+
 }
