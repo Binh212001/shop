@@ -13,4 +13,8 @@ public interface BillService {
     List<Bill> getBillByUser(String userId) throws  Exception;
 
     List<Bill> getBillsByIds(List<Long> billIds);
+
+    void deleteBillsByIds(List<Long> billIds);
+
+    List<Bill> findBillByCustomer(String keyword);
 }

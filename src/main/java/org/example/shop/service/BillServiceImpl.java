@@ -48,4 +48,14 @@ public class BillServiceImpl  implements  BillService{
     public List<Bill> getBillsByIds(List<Long> billIds) {
         return  billRepo.findAllById(billIds);
     }
+
+    @Override
+    public void deleteBillsByIds(List<Long> billIds) {
+        billRepo.deleteAllByIdInBatch(billIds);
+    }
+
+    @Override
+    public List<Bill> findBillByCustomer(String keyword) {
+        return billRepo.findByAccountFullNameContaining(keyword);
+    }
 }

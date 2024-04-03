@@ -15,7 +15,7 @@ public class AccountModel {
     private String phone;
     private String district;
     private String province;
-    private String addressDetail;
     private String avatar;
+    private String addressDetail;
     private boolean isSellers;
 }

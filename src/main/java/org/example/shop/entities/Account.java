@@ -26,10 +26,12 @@ public class Account {
     private String province;
     private String addressDetail;
     private String avatar;
+    private String fullName;
     private boolean isSellers;
 
     @PrePersist
     protected void onCreate() {
-        userId = UUID.randomUUID().toString();;
+        userId = UUID.randomUUID().toString();
+        fullName= firstName+ " "+lastName;
     }
 }

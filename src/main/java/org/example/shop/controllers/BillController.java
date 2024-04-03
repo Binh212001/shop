@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,7 +96,7 @@ public class BillController {
                 document.add(new Paragraph("-------------------------------------------"));
                 sum+= bill.getQuantity()*bill.getProduct().getPrice();
             }
-            document.add(new Paragraph("Tổng cộng  hàng: " +sum));
+            document.add(new Paragraph("Tổng cộng  hàng: " + BigDecimal.valueOf(sum)));
             document.close();
         } catch (DocumentException e) {
             e.printStackTrace();
@@ -103,6 +104,26 @@ public class BillController {
             return outputStream.toByteArray();
 
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteBills(@RequestBody List<Long> billIds) {
+        try {
+            billService.deleteBillsByIds(billIds);
+            return new ResponseEntity<>("Bills deleted successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to delete bills: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Response<List<Bill>>> findBillsByAccountName(@RequestParam("keyword") String keyword) {
+
+        List<Bill> bills = billService.findBillByCustomer(keyword);
+
+        return  ResponseEntity.status(HttpStatus.OK).body(new Response<List<Bill>>(0,bills,"Ok"));
+
+    }
+
 
 
 
