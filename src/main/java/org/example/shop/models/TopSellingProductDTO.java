@@ -8,6 +8,7 @@ import lombok.Data;
 public class TopSellingProductDTO {
     private String productName;
     private long totalQuantitySold;
+    private long revenue;
 
     // Constructor, getters, and setters
 }

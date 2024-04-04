@@ -164,7 +164,7 @@ public class ProductServiceImpl implements  ProductService {
         List<Object[]> results = productRepo.findTop10ByTotalQuantitySold();
 
         List<TopSellingProductDTO> topProducts = results.stream()
-                .map(obj -> new TopSellingProductDTO((String) obj[0], ((Number) obj[1]).longValue()))
+                .map(obj -> new TopSellingProductDTO((String) obj[0], ((Number) obj[1]).longValue(),((Number) obj[2]).longValue()))
                 .collect(Collectors.toList());
 
         return topProducts;
